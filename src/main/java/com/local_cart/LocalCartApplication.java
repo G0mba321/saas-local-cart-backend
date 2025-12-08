@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class LocalCartApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(LocalCartApplication.class, args);
-	}
-
+    static void main(String[] args) {
+        SpringApplication.run(LocalCartApplication.class, args);
+    }
 }

@@ -6,32 +6,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Map;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-public class Product {
+public class Country {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String name;
 
-    private Integer inStock;
-
-    private Double price;
-
-    @Column(length = 1000)
-    private String description;
-
-    //must be JSONB type in postgres
-    private Map<String, Object> details;
-
-    @ManyToOne
-    private Category category;
 }
