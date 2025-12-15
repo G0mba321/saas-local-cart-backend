@@ -1,4 +1,4 @@
-package com.local_cart.dto_product.request;
+package com.local_cart.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

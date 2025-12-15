@@ -1,4 +1,4 @@
-package com.local_cart.dto_product.request;
+package com.local_cart.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,6 +16,6 @@ public class BrandRequest {
     @NotBlank(message = "Brand name cannot be empty")
     private String name;
 
-    @NotNull(message = "Required country name")
-    private String countryName;
+    @NotNull(message = "Required country id")
+    private String countryId;
 }

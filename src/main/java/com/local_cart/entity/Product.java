@@ -25,7 +25,7 @@ public class Product {
     @Column(nullable = false)
     private String name;
 
-    private Integer inStock;
+    private Integer inStock = 0;
 
     private Double price;
 
@@ -33,7 +33,6 @@ public class Product {
     private String description;
 
     @JdbcTypeCode((SqlTypes.JSON))
-    @Column(columnDefinition = "jsonb")
     private Map<String, String> extraDetails = new HashMap<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -49,7 +48,7 @@ public class Product {
 
     @PrePersist
     @PreUpdate
-    private void cleanDetails() {
+    private void cleanEmptyDetails() {
         if (extraDetails != null) {
             extraDetails.values().removeIf(value -> value == null || value.trim().isEmpty());
         }

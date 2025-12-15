@@ -1,4 +1,4 @@
-package com.local_cart.dto_product.response;
+package com.local_cart.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CountryResponse {
-    Long id;
-    String name;
+public class BrandResponse {
+    private Long id;
+    private String name;
+    private CountryResponse countryResponse;
 }
