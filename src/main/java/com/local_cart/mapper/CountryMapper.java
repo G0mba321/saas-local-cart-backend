@@ -1,4 +1,4 @@
-package mapper;
+package com.local_cart.mapper;
 
 import com.local_cart.dto.request.CountryRequest;
 import com.local_cart.dto.response.CountryResponse;

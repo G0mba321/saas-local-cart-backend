@@ -14,7 +14,7 @@ public class CountryService {
 
     private final CountryRepository countryRepository;
 
-    public Country saveCountry(Country country) {
+    public Country save(Country country) {
         return countryRepository.save(country);
     }
 
@@ -26,7 +26,7 @@ public class CountryService {
         return countryRepository.findAll();
     }
 
-    public void deleteCountry(Long id) {
+    public void delete(Long id) {
         countryRepository.delete(getById(id));
     }
 

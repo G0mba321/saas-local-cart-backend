@@ -19,7 +19,7 @@ public class BrandService {
     }
 
     public Brand findOneBrandById(Long id) {
-        return  getById(id);
+        return getById(id);
     }
 
     public List<Brand> findAllBrands() {
@@ -31,7 +31,7 @@ public class BrandService {
     }
 
     private Brand getById(Long id) {
-        return  brandRepository.findById(id)
+        return brandRepository.findById(id)
                 .orElseThrow(() -> new BrandNotFoundException(id));
     }
 }
