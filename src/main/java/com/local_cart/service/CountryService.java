@@ -19,7 +19,8 @@ public class CountryService {
     }
 
     public Country findOneCountryById(Long id) {
-        return getById(id);
+        return countryRepository.findById(id)
+                .orElseThrow(() -> new CountryNotFoundException(id));
     }
 
     public List<Country> findAllCountries() {
@@ -27,11 +28,6 @@ public class CountryService {
     }
 
     public void delete(Long id) {
-        countryRepository.delete(getById(id));
-    }
-
-    private Country getById(Long id) {
-        return countryRepository.findById(id)
-                .orElseThrow(() -> new CountryNotFoundException(id));
+        countryRepository.delete(findOneCountryById(id));
     }
 }

@@ -19,7 +19,8 @@ public class BrandService {
     }
 
     public Brand findOneBrandById(Long id) {
-        return getById(id);
+        return brandRepository.findById(id)
+                .orElseThrow(() -> new BrandNotFoundException(id));
     }
 
     public List<Brand> findAllBrands() {
@@ -27,11 +28,7 @@ public class BrandService {
     }
 
     public void deleteBrandById(Long id) {
-        brandRepository.delete(getById(id));
+        brandRepository.delete(findOneBrandById(id));
     }
 
-    private Brand getById(Long id) {
-        return brandRepository.findById(id)
-                .orElseThrow(() -> new BrandNotFoundException(id));
-    }
 }
