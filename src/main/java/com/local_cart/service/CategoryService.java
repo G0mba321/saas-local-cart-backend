@@ -18,7 +18,7 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public Category findOne(Long id) {
+    public Category findOneCategoryById(Long id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new CategoryNotFoundException(id));
     }
@@ -32,7 +32,7 @@ public class CategoryService {
     }
 
     public void delete(Long id) {
-        Category find = findOne(id);
+        Category find = findOneCategoryById(id);
 
         if (!find.getChildren().isEmpty()) {
             throw new CategoryNotFoundException(id);

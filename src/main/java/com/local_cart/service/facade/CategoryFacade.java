@@ -22,17 +22,17 @@ public class CategoryFacade {
 
     @Transactional
     public CategoryResponse createCategory(CategoryRequest request) {
-        Category toEntity = categoryMapper.toEntity(request);
+        Category categoryEntity = categoryMapper.toEntity(request);
 
         if (request.getParentId() != null) {
-            Category parent = categoryService.findOne(request.getParentId());
-            toEntity.setParent(parent);
-            toEntity.setRoot(false);
+            Category parent = categoryService.findOneCategoryById(request.getParentId());
+            categoryEntity.setParent(parent);
+            categoryEntity.setRoot(false);
         } else {
-            toEntity.setRoot(true);
+            categoryEntity.setRoot(true);
         }
 
-        Category saved = categoryService.save(toEntity);
+        Category saved = categoryService.save(categoryEntity);
 
         return categoryMapper.toResponse(saved);
     }
@@ -48,14 +48,14 @@ public class CategoryFacade {
 
     @Transactional(readOnly = true)
     public CategoryResponse getOneCategory(Long id) {
-        Category find = categoryService.findOne(id);
+        Category find = categoryService.findOneCategoryById(id);
 
         return categoryMapper.toResponse(find);
     }
 
     @Transactional
     public CategoryResponse updateCategory(Long id, CategoryRequest request) {
-        Category findCategory = categoryService.findOne(id);
+        Category findCategory = categoryService.findOneCategoryById(id);
 
         categoryMapper.updateCategory(request, findCategory);
 
@@ -63,7 +63,7 @@ public class CategoryFacade {
             if (id.equals(request.getParentId())) {
                 throw new ParentCategoryException();
             }
-            Category parent = categoryService.findOne(request.getParentId());
+            Category parent = categoryService.findOneCategoryById(request.getParentId());
             findCategory.setParent(parent);
             findCategory.setRoot(false);
         } else {

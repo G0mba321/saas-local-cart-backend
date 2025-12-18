@@ -30,7 +30,7 @@ public class ProductRequest {
 
     private Long categoryId;
 
-    private Long originCountryId;
+    private Long CountryId;
 
     private Long brandId;
 
