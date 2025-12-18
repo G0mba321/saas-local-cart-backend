@@ -20,7 +20,7 @@ public class CountryFacade {
     private final CountryMapper countryMapper;
 
     @Transactional
-    public CountryResponse saveCountry(CountryRequest request) {
+    public CountryResponse createCountry(CountryRequest request) {
         Country countryEntity = countryMapper.toEntity(request);
 
         Country saved = countryService.save(countryEntity);
