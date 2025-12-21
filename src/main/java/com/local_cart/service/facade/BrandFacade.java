@@ -27,7 +27,7 @@ public class BrandFacade {
         Brand brandEntity = brandMapper.toEntity(request);
 
         Country country = countryService
-                .findOneCountryById(Long.valueOf(request.getCountryId()));
+                .findCountryById(Long.valueOf(request.getCountryId()));
 
         brandEntity.setCountryBrand(country);
 
@@ -38,7 +38,7 @@ public class BrandFacade {
 
     @Transactional(readOnly = true)
     public BrandResponse getOneBrand(Long id) {
-        Brand brandToFind = brandService.findOneBrandById(id);
+        Brand brandToFind = brandService.findBrandById(id);
 
         return brandMapper.toResponse(brandToFind);
     }
@@ -52,13 +52,13 @@ public class BrandFacade {
 
     @Transactional
     public BrandResponse updateBrand(Long id, BrandRequest request) {
-        Brand foundBrand = brandService.findOneBrandById(id);
+        Brand foundBrand = brandService.findBrandById(id);
 
         brandMapper.updateBrand(request, foundBrand);
 
         if (request.getCountryId() != null) {
             Country country = countryService
-                    .findOneCountryById(Long.valueOf(request.getCountryId()));
+                    .findCountryById(Long.valueOf(request.getCountryId()));
             foundBrand.setCountryBrand(country);
         }
 

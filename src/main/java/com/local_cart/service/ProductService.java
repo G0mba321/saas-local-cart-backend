@@ -1,7 +1,7 @@
 package com.local_cart.service;
 
 import com.local_cart.entity.Product;
-import com.local_cart.exceptions.ProductNotFoundException;
+import com.local_cart.exceptions.ResourceNotFoundException;
 import com.local_cart.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,9 +18,10 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Product findProduct(Long id) {
+    public Product findProductById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException("Product is not found") {
+                });
     }
 
     public List<Product> findAll() {
@@ -28,6 +29,6 @@ public class ProductService {
     }
 
     public void delete(Long id) {
-        productRepository.delete(findProduct(id));
+        productRepository.delete(findProductById(id));
     }
 }

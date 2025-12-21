@@ -1,7 +1,7 @@
 package com.local_cart.service;
 
 import com.local_cart.entity.Country;
-import com.local_cart.exceptions.CountryNotFoundException;
+import com.local_cart.exceptions.ResourceNotFoundException;
 import com.local_cart.repository.CountryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,9 +18,10 @@ public class CountryService {
         return countryRepository.save(country);
     }
 
-    public Country findOneCountryById(Long id) {
+    public Country findCountryById(Long id) {
         return countryRepository.findById(id)
-                .orElseThrow(() -> new CountryNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException("Country is not found") {
+                });
     }
 
     public List<Country> findAllCountries() {
@@ -28,6 +29,6 @@ public class CountryService {
     }
 
     public void delete(Long id) {
-        countryRepository.delete(findOneCountryById(id));
+        countryRepository.delete(findCountryById(id));
     }
 }

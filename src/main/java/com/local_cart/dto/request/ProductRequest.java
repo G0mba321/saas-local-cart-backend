@@ -2,6 +2,7 @@ package com.local_cart.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class ProductRequest {
     private Integer inStock;
 
     @NotNull(message = "Cannot be without price")
+    @PositiveOrZero
     private Double price;
 
     private String description;
@@ -30,7 +32,7 @@ public class ProductRequest {
 
     private Long categoryId;
 
-    private Long CountryId;
+    private Long countryId;
 
     private Long brandId;
 

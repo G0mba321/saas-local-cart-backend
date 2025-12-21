@@ -1,7 +1,7 @@
 package com.local_cart.service;
 
 import com.local_cart.entity.Category;
-import com.local_cart.exceptions.CategoryNotFoundException;
+import com.local_cart.exceptions.ResourceNotFoundException;
 import com.local_cart.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,24 +18,26 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public Category findOneCategoryById(Long id) {
+    public Category findCategoryById(Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException("Category is not found") {
+                });
     }
 
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }
 
-    public List<Category> findRoot() {
+    public List<Category> findRoots() {
         return categoryRepository.findByParentIsNull();
     }
 
     public void delete(Long id) {
-        Category find = findOneCategoryById(id);
+        Category find = findCategoryById(id);
 
         if (!find.getChildren().isEmpty()) {
-            throw new CategoryNotFoundException(id);
+            throw new ResourceNotFoundException("Category is not found") {
+            };
         }
 
         categoryRepository.delete(find);

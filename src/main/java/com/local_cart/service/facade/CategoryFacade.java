@@ -3,7 +3,7 @@ package com.local_cart.service.facade;
 import com.local_cart.dto.request.CategoryRequest;
 import com.local_cart.dto.response.CategoryResponse;
 import com.local_cart.entity.Category;
-import com.local_cart.exceptions.ParentCategoryException;
+import com.local_cart.exceptions.ConflictException;
 import com.local_cart.mapper.CategoryMapper;
 import com.local_cart.service.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class CategoryFacade {
         Category categoryEntity = categoryMapper.toEntity(request);
 
         if (request.getParentId() != null) {
-            Category parent = categoryService.findOneCategoryById(request.getParentId());
+            Category parent = categoryService.findCategoryById(request.getParentId());
             categoryEntity.setParent(parent);
             categoryEntity.setRoot(false);
         } else {
@@ -39,7 +39,7 @@ public class CategoryFacade {
 
     @Transactional(readOnly = true)
     public List<CategoryResponse> getCategoryTree() {
-        List<Category> roots = categoryService.findRoot();
+        List<Category> roots = categoryService.findRoots();
 
         return roots.stream()
                 .map(categoryMapper::toResponse)
@@ -48,22 +48,22 @@ public class CategoryFacade {
 
     @Transactional(readOnly = true)
     public CategoryResponse getOneCategory(Long id) {
-        Category find = categoryService.findOneCategoryById(id);
+        Category find = categoryService.findCategoryById(id);
 
         return categoryMapper.toResponse(find);
     }
 
     @Transactional
     public CategoryResponse updateCategory(Long id, CategoryRequest request) {
-        Category findCategory = categoryService.findOneCategoryById(id);
+        Category findCategory = categoryService.findCategoryById(id);
 
         categoryMapper.updateCategory(request, findCategory);
 
         if (request.getParentId() != null) {
             if (id.equals(request.getParentId())) {
-                throw new ParentCategoryException();
+                throw new ConflictException();
             }
-            Category parent = categoryService.findOneCategoryById(request.getParentId());
+            Category parent = categoryService.findCategoryById(request.getParentId());
             findCategory.setParent(parent);
             findCategory.setRoot(false);
         } else {

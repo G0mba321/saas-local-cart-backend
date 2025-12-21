@@ -33,9 +33,9 @@ public class ProductFacade {
     public ProductResponse createProduct(ProductRequest request) {
         Product productEntity = productMapper.toEntity(request);
 
-        Brand brand = brandService.findOneBrandById(request.getBrandId());
-        Country country = countryService.findOneCountryById(request.getCountryId());
-        Category category = categoryService.findOneCategoryById(request.getCategoryId());
+        Brand brand = brandService.findBrandById(request.getBrandId());
+        Country country = countryService.findCountryById(request.getCountryId());
+        Category category = categoryService.findCategoryById(request.getCategoryId());
 
         productEntity.setBrand(brand);
         productEntity.setCountry(country);
@@ -48,7 +48,7 @@ public class ProductFacade {
 
     @Transactional(readOnly = true)
     public ProductResponse getOneProduct(Long id) {
-        Product find = productService.findProduct(id);
+        Product find = productService.findProductById(id);
 
         return productMapper.toResponse(find);
     }
@@ -62,22 +62,22 @@ public class ProductFacade {
 
     @Transactional
     public ProductResponse updateProduct(Long id, ProductRequest request) {
-        Product findProduct = productService.findProduct(id);
+        Product findProduct = productService.findProductById(id);
 
         productMapper.updateProduct(request, findProduct);
 
         if (request.getBrandId() != null) {
-            Brand brand = brandService.findOneBrandById(request.getBrandId());
+            Brand brand = brandService.findBrandById(request.getBrandId());
             findProduct.setBrand(brand);
         }
 
         if (request.getCountryId() != null) {
-            Country country = countryService.findOneCountryById(request.getCountryId());
+            Country country = countryService.findCountryById(request.getCountryId());
             findProduct.setCountry(country);
         }
 
         if (request.getCategoryId() != null) {
-            Category category = categoryService.findOneCategoryById(request.getCategoryId());
+            Category category = categoryService.findCategoryById(request.getCategoryId());
             findProduct.setCategory(category);
         }
 

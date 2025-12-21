@@ -1,7 +1,7 @@
 package com.local_cart.service;
 
 import com.local_cart.entity.Brand;
-import com.local_cart.exceptions.BrandNotFoundException;
+import com.local_cart.exceptions.ResourceNotFoundException;
 import com.local_cart.repository.BrandRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,9 +18,10 @@ public class BrandService {
         return brandRepository.save(brand);
     }
 
-    public Brand findOneBrandById(Long id) {
+    public Brand findBrandById(Long id) {
         return brandRepository.findById(id)
-                .orElseThrow(() -> new BrandNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException("Brand is not found") {
+                });
     }
 
     public List<Brand> findAllBrands() {
@@ -28,7 +29,7 @@ public class BrandService {
     }
 
     public void deleteBrandById(Long id) {
-        brandRepository.delete(findOneBrandById(id));
+        brandRepository.delete(findBrandById(id));
     }
 
 }

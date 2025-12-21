@@ -1,6 +1,6 @@
-package com.local_cart.exceptions.globalExceptions;
+package com.local_cart.exceptions.handlers;
 
-import com.local_cart.exceptions.ParentCategoryException;
+import com.local_cart.exceptions.ConflictException;
 import com.local_cart.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -25,8 +25,8 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
         return problemDetail;
     }
 
-    @ExceptionHandler(ParentCategoryException.class)
-    public ProblemDetail parentException(ParentCategoryException ex) {
+    @ExceptionHandler(ConflictException.class)
+    public ProblemDetail conflictException(ConflictException ex) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST,
                 ex.getMessage());
 

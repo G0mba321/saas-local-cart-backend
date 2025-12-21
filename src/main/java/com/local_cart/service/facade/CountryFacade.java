@@ -30,7 +30,7 @@ public class CountryFacade {
 
     @Transactional(readOnly = true)
     public CountryResponse getOneCountry(Long id) {
-        Country findCountry = countryService.findOneCountryById(id);
+        Country findCountry = countryService.findCountryById(id);
 
         return countryMapper.toResponse(findCountry);
     }
@@ -44,7 +44,7 @@ public class CountryFacade {
 
     @Transactional
     public CountryResponse updateCountry(Long id, CountryRequest request) {
-        Country findCountry = countryService.findOneCountryById(id);
+        Country findCountry = countryService.findCountryById(id);
 
         countryMapper.updateCountry(request, findCountry);
 

@@ -17,5 +17,5 @@ public class BrandRequest {
     private String name;
 
     @NotNull(message = "Required country id")
-    private String countryId;
+    private Long countryId;
 }
