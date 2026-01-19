@@ -1,4 +1,4 @@
-package com.local_cart.service.facade;
+package com.local_cart.facade;
 
 import com.local_cart.dto.request.CategoryRequest;
 import com.local_cart.dto.response.CategoryResponse;
@@ -20,21 +20,10 @@ public class CategoryFacade {
     private final CategoryService categoryService;
     private final CategoryMapper categoryMapper;
 
-    @Transactional
     public CategoryResponse createCategory(CategoryRequest request) {
-        Category categoryEntity = categoryMapper.toEntity(request);
+        Category category = categoryService.createCategory(request);
 
-        if (request.getParentId() != null) {
-            Category parent = categoryService.findCategoryById(request.getParentId());
-            categoryEntity.setParent(parent);
-            categoryEntity.setRoot(false);
-        } else {
-            categoryEntity.setRoot(true);
-        }
-
-        Category saved = categoryService.save(categoryEntity);
-
-        return categoryMapper.toResponse(saved);
+        return categoryMapper.toResponse(category);
     }
 
     @Transactional(readOnly = true)
@@ -48,32 +37,20 @@ public class CategoryFacade {
 
     @Transactional(readOnly = true)
     public CategoryResponse getOneCategory(Long id) {
-        Category find = categoryService.findCategoryById(id);
+        Category find = categoryService.getOneCategory(id);
 
         return categoryMapper.toResponse(find);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
+    public List<Category> getAllCategories() {
+        return categoryService.getAllCategories();
+    }
+
     public CategoryResponse updateCategory(Long id, CategoryRequest request) {
-        Category findCategory = categoryService.findCategoryById(id);
+        Category category = categoryService.getOneCategory(id);
 
-        categoryMapper.updateCategory(request, findCategory);
-
-        if (request.getParentId() != null) {
-            if (id.equals(request.getParentId())) {
-                throw new ConflictException();
-            }
-            Category parent = categoryService.findCategoryById(request.getParentId());
-            findCategory.setParent(parent);
-            findCategory.setRoot(false);
-        } else {
-            findCategory.setParent(null);
-            findCategory.setRoot(true);
-        }
-
-        Category updated = categoryService.save(findCategory);
-
-        return categoryMapper.toResponse(updated);
+        return categoryMapper.toResponse(category);
     }
 
     @Transactional

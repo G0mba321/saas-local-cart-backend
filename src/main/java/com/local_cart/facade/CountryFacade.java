@@ -1,4 +1,4 @@
-package com.local_cart.service.facade;
+package com.local_cart.facade;
 
 import com.local_cart.dto.request.CountryRequest;
 import com.local_cart.dto.response.CountryResponse;
@@ -19,18 +19,15 @@ public class CountryFacade {
     private final CountryService countryService;
     private final CountryMapper countryMapper;
 
-    @Transactional
     public CountryResponse createCountry(CountryRequest request) {
-        Country countryEntity = countryMapper.toEntity(request);
+         Country country = countryService.createCountry(request);
 
-        Country saved = countryService.save(countryEntity);
-
-        return countryMapper.toResponse(saved);
+        return countryMapper.toResponse(country);
     }
 
     @Transactional(readOnly = true)
     public CountryResponse getOneCountry(Long id) {
-        Country findCountry = countryService.findCountryById(id);
+        Country findCountry = countryService.getOneCountry(id);
 
         return countryMapper.toResponse(findCountry);
     }
@@ -42,15 +39,10 @@ public class CountryFacade {
                 .collect(Collectors.toList());
     }
 
-    @Transactional
     public CountryResponse updateCountry(Long id, CountryRequest request) {
-        Country findCountry = countryService.findCountryById(id);
+        Country findCountry = countryService.getOneCountry(id);
 
-        countryMapper.updateCountry(request, findCountry);
-
-        Country updated = countryService.save(findCountry);
-
-        return countryMapper.toResponse(updated);
+        return countryMapper.toResponse(findCountry);
     }
 
     @Transactional

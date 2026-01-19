@@ -2,7 +2,7 @@ package com.local_cart.controller;
 
 import com.local_cart.dto.request.BrandRequest;
 import com.local_cart.dto.response.BrandResponse;
-import com.local_cart.service.facade.BrandFacade;
+import com.local_cart.facade.BrandFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

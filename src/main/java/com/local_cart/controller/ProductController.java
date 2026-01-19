@@ -2,7 +2,7 @@ package com.local_cart.controller;
 
 import com.local_cart.dto.request.ProductRequest;
 import com.local_cart.dto.response.ProductResponse;
-import com.local_cart.service.facade.ProductFacade;
+import com.local_cart.facade.ProductFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
