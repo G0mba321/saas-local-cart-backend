@@ -15,6 +15,7 @@ public interface CategoryMapper {
     @Mapping(target = "children", ignore = true)
     Category toEntity(CategoryRequest CategoryRequest);
 
+    @Mapping(target = "parentId", source = "parent.id")
     CategoryResponse toResponse(Category Category);
 
     @Mapping(target = "root", ignore = true)

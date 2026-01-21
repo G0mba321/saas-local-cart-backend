@@ -22,5 +22,5 @@ public class CategoryRequest {
 
     private Long parentId;
 
-    private boolean isRoot = false;
+    private boolean root = false;
 }

@@ -30,7 +30,7 @@ public class BrandService {
 
     public Brand getOneBrand(Long id) {
         return brandRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Brand is not found")
+                .orElseThrow(() -> new ResourceNotFoundException("Brand is not found " + id)
                 );
     }
 

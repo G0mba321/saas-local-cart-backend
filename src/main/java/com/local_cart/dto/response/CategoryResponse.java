@@ -13,7 +13,8 @@ import lombok.Setter;
 public class CategoryResponse {
     private Long id;
     private CategoryType baseType;
-    private boolean isRoot = false;
+    private boolean root = false;
     private String name;
+    private Long parentId;
 
 }

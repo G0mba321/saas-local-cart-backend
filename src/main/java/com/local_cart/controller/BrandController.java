@@ -3,6 +3,7 @@ package com.local_cart.controller;
 import com.local_cart.dto.request.BrandRequest;
 import com.local_cart.dto.response.BrandResponse;
 import com.local_cart.facade.BrandFacade;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class BrandController {
     private final BrandFacade brandFacade;
 
     @PostMapping
-    public ResponseEntity<BrandResponse> createBrand(
+    public ResponseEntity<BrandResponse> createBrand(@Valid
             @RequestBody BrandRequest request) {
 
         BrandResponse response = brandFacade.createBrand(request);

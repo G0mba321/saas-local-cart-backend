@@ -36,7 +36,7 @@ public class CategoryService {
 
     public Category getOneCategory(Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Category is not found")
+                .orElseThrow(() -> new ResourceNotFoundException("Category is not found " + id)
                 );
     }
 
@@ -54,9 +54,9 @@ public class CategoryService {
 
         categoryMapper.updateCategory(request, category);
 
-        if (request.getParentId() != null) {
+        if (request.getParentId() != null && !category.getChildren().isEmpty()) {
             if (id.equals(request.getParentId())) {
-                throw new ConflictException("Smth went wrong while updating the category");
+                throw new ConflictException("Category is not found " + id);
             }
             Category parent = getOneCategory(request.getParentId());
             category.setParent(parent);

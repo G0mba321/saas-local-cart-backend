@@ -26,7 +26,7 @@ public class CategoryFacade {
     }
 
     @Transactional(readOnly = true)
-    public List<CategoryResponse> getCategoryTree() {
+    public List<CategoryResponse> getCategoryRoot() {
         List<Category> roots = categoryService.findRoots();
 
         return roots.stream()
@@ -47,7 +47,7 @@ public class CategoryFacade {
     }
 
     public CategoryResponse updateCategory(Long id, CategoryRequest request) {
-        Category category = categoryService.getOneCategory(id);
+        Category category = categoryService.updateCategory(id, request);
 
         return categoryMapper.toResponse(category);
     }

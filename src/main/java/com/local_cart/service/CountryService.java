@@ -29,7 +29,7 @@ public class CountryService {
 
     public Country getOneCountry(Long id) {
         return countryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Country is not found")
+                .orElseThrow(() -> new ResourceNotFoundException("Country is not found " + id)
                 );
     }
 
