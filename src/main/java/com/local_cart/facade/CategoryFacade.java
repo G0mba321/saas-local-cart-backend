@@ -3,7 +3,6 @@ package com.local_cart.facade;
 import com.local_cart.dto.request.CategoryRequest;
 import com.local_cart.dto.response.CategoryResponse;
 import com.local_cart.entity.Category;
-import com.local_cart.exceptions.ConflictException;
 import com.local_cart.mapper.CategoryMapper;
 import com.local_cart.service.CategoryService;
 import lombok.RequiredArgsConstructor;

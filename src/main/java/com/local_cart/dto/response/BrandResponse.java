@@ -12,5 +12,5 @@ import lombok.Setter;
 public class BrandResponse {
     private Long id;
     private String name;
-    private CountryResponse countryResponse;
+    private CountryResponse countryBrand;
 }

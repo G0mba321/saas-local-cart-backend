@@ -2,9 +2,6 @@ package com.local_cart.facade;
 
 import com.local_cart.dto.request.ProductRequest;
 import com.local_cart.dto.response.ProductResponse;
-import com.local_cart.entity.Brand;
-import com.local_cart.entity.Category;
-import com.local_cart.entity.Country;
 import com.local_cart.entity.Product;
 import com.local_cart.mapper.ProductMapper;
 import com.local_cart.service.BrandService;

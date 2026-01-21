@@ -1,7 +1,6 @@
 package com.local_cart.service;
 
 import com.local_cart.dto.request.ProductRequest;
-import com.local_cart.dto.response.ProductResponse;
 import com.local_cart.entity.Brand;
 import com.local_cart.entity.Category;
 import com.local_cart.entity.Country;

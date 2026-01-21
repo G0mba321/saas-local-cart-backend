@@ -12,6 +12,7 @@ public interface BrandMapper {
     @Mapping(target = "countryBrand", ignore = true)
     Brand toEntity(BrandRequest brandRequest);
 
+    @Mapping(target = "countryBrand")
     BrandResponse toResponse(Brand brand);
 
     @Mapping(target = "countryBrand", ignore = true)

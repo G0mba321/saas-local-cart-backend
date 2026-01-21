@@ -1,7 +1,6 @@
 package com.local_cart.service;
 
 import com.local_cart.dto.request.CountryRequest;
-import com.local_cart.dto.response.CountryResponse;
 import com.local_cart.entity.Country;
 import com.local_cart.exceptions.ResourceNotFoundException;
 import com.local_cart.mapper.CountryMapper;

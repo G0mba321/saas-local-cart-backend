@@ -2,7 +2,6 @@ package com.local_cart.controller;
 
 import com.local_cart.dto.request.CategoryRequest;
 import com.local_cart.dto.response.CategoryResponse;
-import com.local_cart.entity.Category;
 import com.local_cart.facade.CategoryFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,11 +32,6 @@ public class CategoryController {
         return ResponseEntity.ok(categoryFacade.getOneCategory(id));
     }
 
-    @GetMapping
-    public ResponseEntity<List<Category>> getAllCategories() {
-        return ResponseEntity.ok(categoryFacade.getAllCategories());
-    }
-    
     @GetMapping
     public List<CategoryResponse> getAllCategoryTree() {
         return categoryFacade.getCategoryTree();

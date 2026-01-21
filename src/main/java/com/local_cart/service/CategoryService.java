@@ -1,7 +1,6 @@
 package com.local_cart.service;
 
 import com.local_cart.dto.request.CategoryRequest;
-import com.local_cart.dto.response.CategoryResponse;
 import com.local_cart.entity.Category;
 import com.local_cart.exceptions.ConflictException;
 import com.local_cart.exceptions.ResourceNotFoundException;
@@ -69,6 +68,7 @@ public class CategoryService {
 
         return categoryRepository.save(category);
     }
+
     public void delete(Long id) {
         Category find = getOneCategory(id);
 
