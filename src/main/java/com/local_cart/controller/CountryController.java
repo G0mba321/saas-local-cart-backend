@@ -3,6 +3,7 @@ package com.local_cart.controller;
 import com.local_cart.dto.request.CountryRequest;
 import com.local_cart.dto.response.CountryResponse;
 import com.local_cart.facade.CountryFacade;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class CountryController {
     private final CountryFacade countryFacade;
 
     @PostMapping
-    public ResponseEntity<CountryResponse> createCountry(
+    public ResponseEntity<CountryResponse> createCountry(@Valid
             @RequestBody CountryRequest request) {
 
         CountryResponse response = countryFacade.createCountry(request);

@@ -1,6 +1,6 @@
 package com.local_cart.controller_test;
 
-import com.local_cart.BaseIntegrationTest;
+import com.local_cart.BaseIntegrationTestOld;
 import com.local_cart.dto.request.BrandRequest;
 import com.local_cart.entity.Brand;
 import com.local_cart.entity.Country;
@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class BrandControllerIT extends BaseIntegrationTest {
+public class BrandControllerIT extends BaseIntegrationTestOld {
 
     @Autowired
     private BrandRepository brandRepository;

@@ -1,26 +1,32 @@
 package com.local_cart;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.data.jpa.test.autoconfigure.AutoConfigureDataJpa;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.local_cart.config.TestSecurityConfig;
+import io.restassured.RestAssured;
+import jakarta.annotation.PostConstruct;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
-import tools.jackson.databind.ObjectMapper;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc(addFilters = false)
-@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+@DirtiesContext
 @ActiveProfiles("test")
-@Transactional
-public abstract class BaseIntegrationTest {
+@Import(TestSecurityConfig.class)
+public class BaseIntegrationTest {
 
-    @Autowired
-    protected MockMvc mockMvc;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
-    @Autowired
-    protected ObjectMapper objectMapper;
+    @LocalServerPort
+    private int localServerPort;
+
+    @PostConstruct
+    public void init() {
+        RestAssured.port = localServerPort;
+        objectMapper.findAndRegisterModules();
+    }
 }

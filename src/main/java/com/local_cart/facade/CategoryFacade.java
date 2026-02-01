@@ -38,7 +38,7 @@ public class CategoryFacade {
     public CategoryResponse getOneCategory(Long id) {
         Category find = categoryService.getOneCategory(id);
 
-        return categoryMapper.toResponse(find);
+        return categoryMapper.toResponseWithChildren(find);
     }
 
     @Transactional(readOnly = true)

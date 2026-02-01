@@ -1,6 +1,6 @@
 package com.local_cart.controller_test;
 
-import com.local_cart.BaseIntegrationTest;
+import com.local_cart.BaseIntegrationTestOld;
 import com.local_cart.dto.request.CategoryRequest;
 import com.local_cart.entity.Category;
 import com.local_cart.enums.CategoryType;
@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public class CategoryControllerIT extends BaseIntegrationTest {
+public class CategoryControllerIT extends BaseIntegrationTestOld {
 
     @Autowired
     private CategoryRepository categoryRepository;
