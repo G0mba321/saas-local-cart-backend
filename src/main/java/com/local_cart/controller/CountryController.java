@@ -38,12 +38,13 @@ public class CountryController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CountryResponse> updateCountry(
-            @PathVariable Long id, @RequestBody CountryRequest request) {
+            @PathVariable Long id, @Valid @RequestBody CountryRequest request) {
 
         CountryResponse response = countryFacade.updateCountry(id, request);
         return ResponseEntity.ok(response);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deleteCountry(@PathVariable Long id) {
         countryFacade.deleteCountry(id);

@@ -40,9 +40,9 @@ public class CountryFacade {
     }
 
     public CountryResponse updateCountry(Long id, CountryRequest request) {
-        Country findCountry = countryService.getOneCountry(id);
+        Country country = countryService.updateCountry(id, request);
 
-        return countryMapper.toResponse(findCountry);
+        return countryMapper.toResponse(country);
     }
 
     @Transactional
