@@ -20,6 +20,7 @@ public class ProductRequest {
     @NotBlank(message = "Product cannot be without name")
     private String name;
 
+    @PositiveOrZero
     private Integer inStock;
 
     @NotNull(message = "Cannot be without price")

@@ -15,6 +15,7 @@ public interface ProductMapper {
     @Mapping(target = "category", ignore = true)
     Product toEntity(ProductRequest productRequest);
 
+    @Mapping(source = "country", target = "originCountry")
     ProductResponse toResponse(Product product);
 
     @Mapping(target = "brand", ignore = true)

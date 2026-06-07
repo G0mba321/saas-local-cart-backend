@@ -28,7 +28,7 @@ public class ProductFacade {
 
     @Transactional
     public ProductResponse createProduct(ProductRequest request) {
-        Product product = productMapper.toEntity(request);
+        Product product = productService.createProduct(request);
 
         return productMapper.toResponse(product);
     }
@@ -48,7 +48,7 @@ public class ProductFacade {
     }
 
     public ProductResponse updateProduct(Long id, ProductRequest request) {
-        Product product = productService.getOneProduct(id);
+        Product product = productService.updateProduct(id, request);
 
         return productMapper.toResponse(product);
     }
