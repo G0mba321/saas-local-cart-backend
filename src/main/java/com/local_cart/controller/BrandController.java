@@ -20,7 +20,7 @@ public class BrandController {
 
     @PostMapping
     public ResponseEntity<BrandResponse> createBrand(@Valid
-            @RequestBody BrandRequest request) {
+                                                     @RequestBody BrandRequest request) {
 
         BrandResponse response = brandFacade.createBrand(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

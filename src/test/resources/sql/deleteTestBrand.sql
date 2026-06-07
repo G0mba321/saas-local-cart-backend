@@ -1,1 +1,2 @@
-DELETE FROM brand;
+DELETE
+FROM brand;

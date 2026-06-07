@@ -1,1 +1,2 @@
-DELETE FROM country;
+DELETE
+FROM country;

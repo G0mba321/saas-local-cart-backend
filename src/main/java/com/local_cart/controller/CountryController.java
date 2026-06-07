@@ -20,7 +20,7 @@ public class CountryController {
 
     @PostMapping
     public ResponseEntity<CountryResponse> createCountry(@Valid
-            @RequestBody CountryRequest request) {
+                                                         @RequestBody CountryRequest request) {
 
         CountryResponse response = countryFacade.createCountry(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

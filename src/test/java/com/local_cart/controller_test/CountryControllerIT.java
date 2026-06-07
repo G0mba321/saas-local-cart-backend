@@ -2,27 +2,20 @@ package com.local_cart.controller_test;
 
 import com.local_cart.BaseIntegrationTest;
 import com.local_cart.dto.request.CountryRequest;
-import com.local_cart.repository.CountryRepository;
 import io.restassured.http.ContentType;
-import org.checkerframework.checker.units.qual.C;
-import org.hamcrest.Matcher;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 
-import static io.restassured.RestAssured.*;
-import static org.assertj.core.api.Assertions.assertThat;
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
-import static org.mockito.BDDMockito.then;
 
 @Sql(scripts = "classpath:sql/insertTestCountry.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "classpath:sql/deleteTestCountry.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class CountryControllerIT extends BaseIntegrationTest {
 
-    private CountryRepository countryRepository;
     private final String BASE_URI = "/api/country";
 
     @Test
@@ -111,9 +104,10 @@ public class CountryControllerIT extends BaseIntegrationTest {
                 .body("name", hasItems(notNullValue(), notNullValue()));
 
     }
+
     @Test
     @Sql(scripts = "classpath:sql/deleteTestCountry.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD,
-    config = @SqlConfig(transactionMode = SqlConfig.TransactionMode.ISOLATED))
+            config = @SqlConfig(transactionMode = SqlConfig.TransactionMode.ISOLATED))
     @DisplayName("get all countries expected to be OK if country list is empty")
     void getAllCountriesShouldReturn201_WhenListIsEmpty() {
         given()
@@ -152,7 +146,7 @@ public class CountryControllerIT extends BaseIntegrationTest {
     void updateCountry_ShouldReturn400_WhenRequestHasNoName() {
         int id = 100;
 
-        CountryRequest request  = new CountryRequest("");
+        CountryRequest request = new CountryRequest("");
 
         given()
                 .contentType(ContentType.JSON)

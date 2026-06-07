@@ -10,14 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class CategoryControllerIT extends BaseIntegrationTestOld {
@@ -37,8 +35,8 @@ public class CategoryControllerIT extends BaseIntegrationTestOld {
         categoryRequest.setBaseType(CategoryType.MEAT);
 
         mockMvc.perform(post("/api/category")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(categoryRequest)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(categoryRequest)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name", is("Meat")))
                 .andExpect(jsonPath("$.baseType", is("MEAT")));
@@ -106,8 +104,8 @@ public class CategoryControllerIT extends BaseIntegrationTestOld {
         categoryRequest.setBaseType(CategoryType.COFFEE);
 
         mockMvc.perform(post("/api/category")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(categoryRequest)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(categoryRequest)))
                 .andExpect(status().isBadRequest());
     }
 
@@ -120,7 +118,7 @@ public class CategoryControllerIT extends BaseIntegrationTestOld {
         category = categoryRepository.save(category);
 
         mockMvc.perform(get("/api/category/{id}", category.getId())
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(category.getId().intValue())))
                 .andExpect(jsonPath("$.name", is(category.getName())))
@@ -132,7 +130,7 @@ public class CategoryControllerIT extends BaseIntegrationTestOld {
         long badId = 999L;
 
         mockMvc.perform(get("/api/category/{id}", badId)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.detail", is("Category is not found " + badId)));
     }
@@ -150,7 +148,7 @@ public class CategoryControllerIT extends BaseIntegrationTestOld {
         category2 = categoryRepository.save(category2);
 
         mockMvc.perform(get("/api/category")
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].name", is(category1.getName())))
@@ -177,8 +175,8 @@ public class CategoryControllerIT extends BaseIntegrationTestOld {
         categoryNew.setBaseType(CategoryType.MEAT);
 
         mockMvc.perform(put("/api/category/{id}", categoryOld.getId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(categoryNew)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(categoryNew)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(categoryOld.getId().intValue())))
                 .andExpect(jsonPath("$.name", is(categoryNew.getName())))
@@ -194,8 +192,8 @@ public class CategoryControllerIT extends BaseIntegrationTestOld {
         categoryNew.setBaseType(CategoryType.MEAT);
 
         mockMvc.perform(put("/api/category/{id}", badId)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(categoryNew)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(categoryNew)))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.detail", is("Category is not found " + badId)));
     }
@@ -210,7 +208,7 @@ public class CategoryControllerIT extends BaseIntegrationTestOld {
         category = categoryRepository.save(category);
 
         mockMvc.perform(delete("/api/category/{id}", category.getId())
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
         boolean existCategory = categoryRepository.existsById(category.getId());
