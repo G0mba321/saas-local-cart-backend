@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -31,6 +32,6 @@ public class Category {
     @ManyToOne(fetch = FetchType.LAZY)
     private Category parent;
 
-    @OneToMany(mappedBy = "parent", orphanRemoval = true)
-    private List<Category> children;
+    @OneToMany(mappedBy = "parent", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Category> children = new ArrayList<>();
 }

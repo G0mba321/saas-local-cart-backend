@@ -5,7 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -22,16 +25,33 @@ public class Product {
     @Column(nullable = false)
     private String name;
 
-    private Integer inStock;
+    private Integer inStock = 0;
 
     private Double price;
 
     @Column(length = 1000)
     private String description;
 
-    //must be JSONB type in postgres
-    private Map<String, Object> details;
+    @JdbcTypeCode((SqlTypes.JSON))
+    private Map<String, String> extraDetails = new HashMap<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "origin_country_id")
+    private Country country;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id", nullable = false)
+    private Brand brand;
+
+    @PrePersist
+    @PreUpdate
+    private void cleanEmptyDetails() {
+        if (extraDetails != null) {
+            extraDetails.values().removeIf(value -> value == null || value.trim().isEmpty());
+        }
+    }
+
 }
