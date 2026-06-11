@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
+
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
