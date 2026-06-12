@@ -16,13 +16,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/country")
-@Tag(name = "CountryController",
-        description = "Endpoints for crud operations on Country service")
+@Tag(name = "country-controller",
+        description = "endpoints for crud operations on country service")
 public class CountryController {
 
     private final CountryFacade countryFacade;
 
-    @Operation(summary = "Create country")
+    @Operation(summary = "create country")
     @PostMapping
     public ResponseEntity<CountryResponse> createCountry(@Valid
                                                          @RequestBody CountryRequest request) {
@@ -31,22 +31,22 @@ public class CountryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @Operation(summary = "Get one country")
+    @Operation(summary = "get one country")
     @GetMapping("/{id}")
     public ResponseEntity<CountryResponse> getOneCountry(@PathVariable Long id) {
         return ResponseEntity.ok(countryFacade.getOneCountry(id));
     }
 
     @Operation(
-            summary = "Get all countries",
-            description = "Get List of countries"
+            summary = "get all countries",
+            description = "get list of countries"
     )
     @GetMapping
     public List<CountryResponse> getAllCountries() {
         return countryFacade.getAllCountries();
     }
 
-    @Operation(summary = "Update country")
+    @Operation(summary = "update country")
     @PutMapping("/{id}")
     public ResponseEntity<CountryResponse> updateCountry(
             @PathVariable Long id, @Valid @RequestBody CountryRequest request) {
@@ -55,7 +55,7 @@ public class CountryController {
         return ResponseEntity.ok(response);
     }
 
-    @Operation(summary = "Delete one country")
+    @Operation(summary = "delete one country")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deleteCountry(@PathVariable Long id) {

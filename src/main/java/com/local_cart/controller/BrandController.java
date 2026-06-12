@@ -16,22 +16,22 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/brand")
-@Tag(name = "BrandController",
-        description = "Endpoints for crud operations on Brand service")
+@Tag(name = "brand-controller",
+        description = "endpoints for crud operations on brand service")
 public class BrandController {
 
     private final BrandFacade brandFacade;
 
     @Operation(
-            summary = "Create brand",
-            description = "FIRSTLY MUST BE CREATED COUNTRY FOR 201 RESPONSE DUE TO countryBrand id")
+            summary = "create brand",
+            description = "firstly must be created country for 201 response due to country_brand_id")
     @PostMapping
     public ResponseEntity<BrandResponse> createBrand(@Valid @RequestBody BrandRequest request) {
         BrandResponse response = brandFacade.createBrand(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @Operation(summary = "Get one brand")
+    @Operation(summary = "get one brand")
     @GetMapping("/{id}")
     public ResponseEntity<BrandResponse> getOneBrand(
             @PathVariable Long id) {
@@ -39,9 +39,9 @@ public class BrandController {
         return ResponseEntity.ok(brandFacade.getOneBrand(id));
     }
 
-    @Operation(summary = "Update one brand",
-            description = "IF USER WANTS TO UPDATE COUNTRY ON BRAND," +
-                    "FIRSTLY CREATE COUNTRY FOR 200 RESPONSE DUE TO countryBrand id")
+    @Operation(summary = "update one brand",
+            description = "if user wants to update country on brand," +
+                    "firstly create country for 200 response due to country_brand_id")
     @PutMapping("/{id}")
     public ResponseEntity<BrandResponse> updateBrand(@PathVariable Long id,
                                                      @RequestBody BrandRequest request) {
@@ -51,15 +51,15 @@ public class BrandController {
     }
 
     @Operation(
-            summary = "Get all brands",
-            description = "Get a List of all brands"
+            summary = "get all brands",
+            description = "get a list of all brands"
     )
     @GetMapping
     public List<BrandResponse> getAllBrands() {
         return brandFacade.getAllBrands();
     }
 
-    @Operation(summary = "Delete one brand")
+    @Operation(summary = "delete one brand")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deleteBrand(@PathVariable Long id) {

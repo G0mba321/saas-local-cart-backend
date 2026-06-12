@@ -16,14 +16,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/product")
-@Tag(name = "ProductController",
-        description = "Endpoints for crud operations on Product service" +
-                " BEFORE CREATING PRODUCT MUST BE CREATED IN ORDER 1.COUNTRY, 2.BRAND, 3.CATEGORY")
+@Tag(name = "product-controller",
+        description = "endpoints for crud operations on product service" +
+                " before creating product must be created in order 1.country, 2.brand, 3.category")
 public class ProductController {
 
     private final ProductFacade productFacade;
 
-    @Operation(summary = "Create product")
+    @Operation(summary = "create product")
     @PostMapping
     public ResponseEntity<ProductResponse> createProduct(@Valid
                                                          @RequestBody ProductRequest request) {
@@ -32,7 +32,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @Operation(summary = "Get one product")
+    @Operation(summary = "get one product")
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getOneProduct(
             @PathVariable Long id) {
@@ -40,15 +40,15 @@ public class ProductController {
     }
 
     @Operation(
-            summary = "Get all products",
-            description = "Get a List of all products"
+            summary = "get all products",
+            description = "get a list of all products"
     )
     @GetMapping
     public List<ProductResponse> getAllProducts() {
         return productFacade.getAllProducts();
     }
 
-    @Operation(summary = "Update one product")
+    @Operation(summary = "update one product")
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponse> updateProduct(@Valid
                                                          @PathVariable Long id, @Valid @RequestBody ProductRequest request) {
@@ -57,7 +57,7 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    @Operation(summary = "Delete one product")
+    @Operation(summary = "delete one product")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProduct(@PathVariable Long id) {
