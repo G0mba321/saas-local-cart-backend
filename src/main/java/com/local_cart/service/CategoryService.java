@@ -44,6 +44,12 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
+    public List<Category> getAllChildrenCategories(Long parentId) {
+        Category category = getOneCategory(parentId);
+
+        return categoryRepository.findByParent(category);
+    }
+
     public List<Category> findRoots() {
         return categoryRepository.findByParentIsNull();
     }

@@ -1,6 +1,7 @@
 package com.local_cart.facade;
 
 import com.local_cart.dto.request.CategoryRequest;
+import com.local_cart.dto.response.CategoryChildrenResponse;
 import com.local_cart.dto.response.CategoryResponse;
 import com.local_cart.entity.Category;
 import com.local_cart.mapper.CategoryMapper;
@@ -26,24 +27,33 @@ public class CategoryFacade {
     }
 
     @Transactional(readOnly = true)
-    public List<CategoryResponse> getCategoryRoot() {
+    public List<CategoryChildrenResponse> getCategoryRoot() {
         List<Category> roots = categoryService.findRoots();
 
         return roots.stream()
-                .map(categoryMapper::toResponse)
+                .map(categoryMapper::toResponseWithChildren)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public CategoryResponse getOneCategory(Long id) {
+    public CategoryChildrenResponse getOneCategory(Long id) {
         Category find = categoryService.getOneCategory(id);
 
         return categoryMapper.toResponseWithChildren(find);
     }
 
     @Transactional(readOnly = true)
-    public List<Category> getAllCategories() {
-        return categoryService.getAllCategories();
+    public List<CategoryResponse> getAllChildrenCategories(Long parentId) {
+        return categoryService.getAllChildrenCategories(parentId).stream()
+                .map(categoryMapper::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<CategoryResponse> getAllCategories() {
+        return categoryService.getAllCategories().stream()
+                .map(categoryMapper::toResponse)
+                .collect(Collectors.toList());
     }
 
     public CategoryResponse updateCategory(Long id, CategoryRequest request) {

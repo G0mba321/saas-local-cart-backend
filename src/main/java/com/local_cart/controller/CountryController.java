@@ -3,6 +3,8 @@ package com.local_cart.controller;
 import com.local_cart.dto.request.CountryRequest;
 import com.local_cart.dto.response.CountryResponse;
 import com.local_cart.facade.CountryFacade;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,10 +16,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/country")
+@Tag(name = "country-controller",
+        description = "endpoints for crud operations on country service")
 public class CountryController {
 
     private final CountryFacade countryFacade;
 
+    @Operation(summary = "create country")
     @PostMapping
     public ResponseEntity<CountryResponse> createCountry(@Valid
                                                          @RequestBody CountryRequest request) {
@@ -26,16 +31,22 @@ public class CountryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @Operation(summary = "get one country")
     @GetMapping("/{id}")
     public ResponseEntity<CountryResponse> getOneCountry(@PathVariable Long id) {
         return ResponseEntity.ok(countryFacade.getOneCountry(id));
     }
 
+    @Operation(
+            summary = "get all countries",
+            description = "get list of countries"
+    )
     @GetMapping
     public List<CountryResponse> getAllCountries() {
         return countryFacade.getAllCountries();
     }
 
+    @Operation(summary = "update country")
     @PutMapping("/{id}")
     public ResponseEntity<CountryResponse> updateCountry(
             @PathVariable Long id, @Valid @RequestBody CountryRequest request) {
@@ -44,6 +55,7 @@ public class CountryController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "delete one country")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deleteCountry(@PathVariable Long id) {

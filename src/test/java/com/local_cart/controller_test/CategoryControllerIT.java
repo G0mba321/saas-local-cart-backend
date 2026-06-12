@@ -6,6 +6,7 @@ import com.local_cart.entity.Category;
 import com.local_cart.enums.CategoryType;
 import com.local_cart.repository.CategoryRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -153,6 +154,34 @@ public class CategoryControllerIT extends BaseIntegrationTestOld {
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].name", is(category1.getName())))
                 .andExpect(jsonPath("$[1].name", is(category2.getName())));
+    }
+
+    @Test
+    @DisplayName("get all children should return 200 and list of children when parent has children")
+    void getAllChildrenCategory_ShouldReturn200_WhenListNotEmpty() throws Exception {
+
+        Category parentCategory = new Category();
+        parentCategory.setName("Groceries");
+        parentCategory = categoryRepository.save(parentCategory);
+
+        Category child1 = new Category();
+        child1.setName("Meatball");
+        child1.setBaseType(CategoryType.MEAT);
+        child1.setParent(parentCategory);
+        child1 = categoryRepository.save(child1);
+
+        Category child2 = new Category();
+        child2.setName("Bread");
+        child2.setBaseType(CategoryType.BREAD);
+        child2.setParent(parentCategory);
+        child2 = categoryRepository.save(child2);
+
+        mockMvc.perform(get("/api/category/{id}/children", parentCategory.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].name", is(child1.getName())))
+                .andExpect(jsonPath("$[1].name", is(child2.getName())));
     }
 
     @Test
